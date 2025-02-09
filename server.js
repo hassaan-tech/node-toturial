@@ -1,18 +1,33 @@
-console.log(global)
-const os = require("os");
-const path = require("path");
-const calc = require('./math');
+const fs = require('fs');
+const path = require('path');
 
-// console.log("os", os.type());
-// console.log("os", os.version());
-// console.log("os", os.homedir());
-// console.log("os", os.hostname());
-// console.log(__dirname);
-// console.log(__filename);
+// console.log(path.join(__dirname, 'files' ,'starter.text'))
 
-// console.log(path.dirname(__filename));
-// console.log(path.basename(__filename));
-// console.log(path.extname(__filename));
-// console.log(path.parse(__filename));
+fs.readFile(path.join(__dirname, 'files' ,'starter.txt'), 'utf8', (err, data) => {
+    if (err) throw err;
+    console.log('operation read complete',data);
+  });
 
-console.log("hello", calc.add(2,2))
+
+//writing file 
+
+fs.writeFile(path.join(__dirname, 'files' ,'reply.txt'), 'Hey I am writing using node', (err) => {
+    if (err) throw err;
+    console.log("Operation write complete");
+  });
+
+
+// Append file
+
+fs.appendFile(path.join(__dirname, 'files' ,'test.txt'), 'Hey I am writing using node', (err) => {
+    if (err) throw err;
+    console.log("Operation Append complete");
+  });
+
+
+//Exit on uncaught error
+
+process.on("uncaughtException", error =>{
+    console.log(`uncaught error ${error}`)
+    process.exit(1);
+})
